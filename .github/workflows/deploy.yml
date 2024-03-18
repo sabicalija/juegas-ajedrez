@@ -44,8 +44,8 @@ jobs:
           path: "gh-pages"
       - name: Merge Builds
         run: |
-          git config --global user.name "${{ github.actor }}"
-          git config --global user.email ""
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           rm -rf gh-pages/*
           cp -r juegas-ajedrez/* gh-pages/
           git --git-dir=gh-pages/.git --work-tree=gh-pages/ add .
