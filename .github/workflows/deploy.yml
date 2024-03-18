@@ -56,6 +56,8 @@ jobs:
           ls -la gh-pages
           git --git-dir=gh-pages/.git --work-tree=gh-pages/ add .
           git --git-dir=gh-pages/.git --work-tree=gh-pages/ commit -m "Release"
+      - name: Upload to GitHub
+        run: git --git-dir=gh-pages/.git --work-tree=gh-pages/ push
       # - name: Copy Build
       #   run: |
       #     cd gh-pages
