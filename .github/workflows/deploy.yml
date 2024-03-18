@@ -45,6 +45,8 @@ jobs:
       - name: Log
         run: |
           ls -la
+          ls -la gh-pages
+          ls -la juegas-ajedrez
       # - name: Copy Build
       #   run: |
       #     cd gh-pages
