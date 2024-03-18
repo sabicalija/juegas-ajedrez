@@ -37,19 +37,22 @@ jobs:
         with:
           name: juegas-ajedrez
           path: juegas-ajedrez
-      - name: Get Code (gh-pages)
-        uses: actions/checkout@v3
-        with:
-          ref: "gh-pages"
-          path: "gh-pages"
-      - name: Copy Build
+      - name: Log
         run: |
-          cd gh-pages
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git config user.name "github-actions[bot]"
-          rm -rf *
-          cp -r ../juegas-ajedrez/* .
-          git --git-dir=./.git --work-tree=./ add .
-          git --git-dir=./.git --work-tree=./ commit -m "Release"
-      - name: Upload to GitHub
-        run: git --git-dir=./.git --work-tree=./ push
+          ls -la
+      # - name: Get Code (gh-pages)
+      #   uses: actions/checkout@v3
+      #   with:
+      #     ref: "gh-pages"
+      #     path: "gh-pages"
+      # - name: Copy Build
+      #   run: |
+      #     cd gh-pages
+      #     git config user.email "github-actions[bot]@users.noreply.github.com"
+      #     git config user.name "github-actions[bot]"
+      #     rm -rf *
+      #     cp -r ../juegas-ajedrez/* .
+      #     git --git-dir=./.git --work-tree=./ add .
+      #     git --git-dir=./.git --work-tree=./ commit -m "Release"
+      # - name: Upload to GitHub
+      #   run: git --git-dir=./.git --work-tree=./ push
