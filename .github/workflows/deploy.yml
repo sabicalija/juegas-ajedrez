@@ -54,6 +54,8 @@ jobs:
           cd ..
           cp -r juegas-ajedrez/* gh-pages/
           ls -la gh-pages
+          git --git-dir=gh-pages/.git --work-tree=gh-pages/ add .
+          git --git-dir=gh-pages/.git --work-tree=gh-pages/ commit -m "Release"
       # - name: Copy Build
       #   run: |
       #     cd gh-pages
