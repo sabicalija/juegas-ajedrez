@@ -47,6 +47,8 @@ jobs:
           ls -la
           ls -la gh-pages
           ls -la juegas-ajedrez
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
       # - name: Copy Build
       #   run: |
       #     cd gh-pages
