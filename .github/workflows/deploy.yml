@@ -56,10 +56,16 @@ jobs:
           ls -la gh-pages
           git --git-dir=gh-pages/.git --work-tree=gh-pages/ add .
           git --git-dir=gh-pages/.git --work-tree=gh-pages/ commit -m "Release"
+      # - name: Upload to GitHub
+      #   run: |
+      #     git --git-dir=gh-pages/.git --work-tree=gh-pages/ remote set-url origin https://x-access-token:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/sabicalija/juegas-ajedrez.git
+      #     git --git-dir=gh-pages/.git --work-tree=gh-pages/ push
       - name: Upload to GitHub
-        run: |
-          git --git-dir=gh-pages/.git --work-tree=gh-pages/ remote set-url origin https://x-access-token:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/sabicalija/juegas-ajedrez.git
-          git --git-dir=gh-pages/.git --work-tree=gh-pages/ push
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          directory: gh-pages
+          branch: gh-pages
       # - name: Copy Build
       #   run: |
       #     cd gh-pages
