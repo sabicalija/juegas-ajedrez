@@ -31,49 +31,22 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Download Build Result
         uses: actions/download-artifact@v3
         with:
           name: juegas-ajedrez
-          path: juegas-ajedrez
-      - name: Get Code (gh-pages)
-        uses: actions/checkout@v3
+          path: ./dist
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
         with:
-          ref: "gh-pages"
-          path: "gh-pages"
-      - name: Log
-        run: |
-          ls -la
-          ls -la gh-pages
-          ls -la juegas-ajedrez
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          cd gh-pages
-          git log
-          cd ..
-          cp -r juegas-ajedrez/* gh-pages/
-          ls -la gh-pages
-          git --git-dir=gh-pages/.git --work-tree=gh-pages/ add .
-          git --git-dir=gh-pages/.git --work-tree=gh-pages/ commit -m "Release"
-      # - name: Upload to GitHub
-      #   run: |
-      #     git --git-dir=gh-pages/.git --work-tree=gh-pages/ remote set-url origin https://x-access-token:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/sabicalija/juegas-ajedrez.git
-      #     git --git-dir=gh-pages/.git --work-tree=gh-pages/ push
-      - name: Upload to GitHub
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          directory: gh-pages
-          branch: gh-pages
-      # - name: Copy Build
-      #   run: |
-      #     cd gh-pages
-      #     git config user.email "github-actions[bot]@users.noreply.github.com"
-      #     git config user.name "github-actions[bot]"
-      #     rm -rf *
-      #     cp -r ../juegas-ajedrez/* .
-      #     git --git-dir=./.git --work-tree=./ add .
-      #     git --git-dir=./.git --work-tree=./ commit -m "Release"
-      # - name: Upload to GitHub
-      #   run: git --git-dir=./.git --work-tree=./ push
+          path: "./dist"
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
