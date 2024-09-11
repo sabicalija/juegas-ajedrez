@@ -9,13 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - uses: pnpm/action-setup@v3
         name: Install pnpm
         with:
           version: latest
       - name: Install Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: latest
           cache: pnpm
@@ -24,7 +24,7 @@ jobs:
       - name: Build Website
         run: pnpm build
       - name: Upload Build Result
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: juegas-ajedrez
           path: dist
@@ -39,14 +39,14 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Download Build Result
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: juegas-ajedrez
           path: ./dist
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           path: "./dist"
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
